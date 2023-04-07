@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Hello World~!!
+	<%
+		java.util.Date date = new java.util.Date();
+		out.println(date);
+	%>
 </body>
 </html>

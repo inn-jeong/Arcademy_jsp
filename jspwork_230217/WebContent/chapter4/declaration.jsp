@@ -7,6 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Hello World~!!
+	<%!
+		String str = "Hello, Java Server Pages";
+		String getString(){
+			return str; 
+		}
+	%>
+	<%
+		out.println(getString());
+	%>
 </body>
 </html>

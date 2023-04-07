@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Hello World~!!
+	로그인을 성공했습니다!!
 </body>
 </html>

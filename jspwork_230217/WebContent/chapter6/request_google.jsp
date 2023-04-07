@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Hello World~!!
+	<%
+		response.sendRedirect("http://www.google.com");
+	%>
 </body>
 </html>

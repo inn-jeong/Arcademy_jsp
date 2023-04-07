@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Hello World~!!
+<%-- 	<%! %>: 변수, 메소드 선언 --%>
+<%-- 	<% %>: 스크립트 릿으로 자바코드 기술 --%>
+	<%! int data = 50; %>
+	<%
+		out.println("Value of the variable is : "+data);
+	%>
 </body>
 </html>

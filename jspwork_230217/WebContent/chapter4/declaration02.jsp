@@ -7,6 +7,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Hello World~!!
+	<%! 
+		int sum(int a, int b){
+			return a+b;
+		}
+	%>
+	<%
+// 		스크립트 릿은 메소드 선언 안됨
+// 		int sum2(int a, int b){
+// 			return a+b;
+// 		}
+		out.println("2 + 3 = "+sum(2, 3));
+	%>
 </body>
 </html>

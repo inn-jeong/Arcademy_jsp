@@ -7,6 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Hello World~!!
+	<center>
+		<h3>[스크립트릿(scriptlet)에 관한 예제</h3>
+	</center>
+	<%
+		for(int i=0; i<5; i++){
+			%>
+			안녕하세요!<br>
+			<%
+// 			out.println("안녕하세요"+"<br>");
+		}
+	%>
 </body>
 </html>

@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Hello World~!!
+	<% out.println("[1] Hello Kitty"); %>
+	<hr><br>
+	[2] Good Morning~!!!
 </body>
 </html>

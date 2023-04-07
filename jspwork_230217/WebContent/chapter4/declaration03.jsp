@@ -7,6 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Hello World~!!
+	<%!
+		String makeItLower(String data){
+			return data.toLowerCase();
+		}
+	%>
+	<%
+		out.println(makeItLower("Hello World!!"));
+	%>
 </body>
 </html>
