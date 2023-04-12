@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,6 +15,10 @@
 	이 파일은 yellow.jsp 입니다. <br>
 	<hr>
 	웹 브라우저에 나타나는 URL과 전혀 상관없는 파일입니다.
+	<%
+ 		Map<String, String[]> answer = request.getParameterMap();
+ 		out.println(answer);
+	%>
 
 </body>
 </html>
