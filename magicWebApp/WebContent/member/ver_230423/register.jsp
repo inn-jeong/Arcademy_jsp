@@ -8,7 +8,6 @@
 <script language="JavaScript" src="script.js" charset="utf-8"></script>
 </head>
 <body>
-	<% request.setCharacterEncoding("utf-8"); %>
 	<form name="reg_frm" method="post" action="registerOK.jsp">
 		<table border="1" align="center">
 			<tr height="50">

@@ -1,13 +1,12 @@
-
-<%@page import="java.sql.SQLException"%>
-<%@page import="javax.sql.DataSource"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
+<%@page import="javax.sql.*"%>
 <%@page import="javax.naming.InitialContext"%>
+<%@page import="java.sql.*"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<jsp:useBean class="magic.member.MemberBean" id="member"></jsp:useBean>
+<jsp:useBean class="magic.member.MemberDBBean" id="DBbean"></jsp:useBean>
+<% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,33 +16,32 @@
 
 </head>
 <body>
-	<% request.setCharacterEncoding("utf-8"); %>
-	<jsp:useBean class="magic.member.MemberBean" id="member" scope="session"></jsp:useBean>
-	<jsp:useBean class="magic.member.MemberDBBean" id="DBbean"></jsp:useBean>
 	<%!
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 	%>
 	<%
-		String id="", pw="";
-		id = request.getParameter("mem_uid");
-		pw = request.getParameter("mem_pwd");
+		String mem_uid="", mem_pwd="";
+		mem_uid = request.getParameter("mem_uid");
+		mem_pwd = request.getParameter("mem_pwd");
 		
 		try{
 			conn = ((DataSource)(new InitialContext().lookup("java:comp/env/jdbc/oracle"))).getConnection();
 			StringBuffer selectQuery = new StringBuffer();
-			selectQuery.append("select * from memberT where mem_uid=?");
+			selectQuery.append("select mem_uid, mem_pwd from memberT where mem_uid=?");
 			pstmt = conn.prepareStatement(selectQuery.toString());
-			pstmt.setString(1, id);
+			pstmt.setString(1, mem_uid);
 			
 			rs = pstmt.executeQuery();
-
+			
 			if(rs.next()){
-				DBbean.setProperty(rs);
-				if(pw.equals(DBbean.getMem_pwd())){
-					member.setProperty(DBbean);
-					response.sendRedirect("main.jsp");
+				if(mem_pwd.equals(rs.getString("mem_pwd"))){
+					%>
+						<script>
+							alert("로그인 성공!");
+						</script>
+					<%
 					//response.sendRedirect("main.jsp");
 				}else{
 					%>

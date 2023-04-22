@@ -35,5 +35,6 @@ function check_OK(){
 		reg_frm.mem_email.focus();
 		return;
 	}
+	reg_frm.submit();
 }
 
