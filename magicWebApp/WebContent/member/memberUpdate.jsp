@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script language="JavaScript" src="script.js" charset="utf-8"></script>
 </head>
 <body>
 	<% request.setCharacterEncoding("utf-8"); %>
@@ -21,37 +22,37 @@
 			<tr height="30">
 				<td width="80">User ID</td>
 				<td>
-					<input name="mem_uid" type="text" value='<%= member.getMem_uid() %>' size="20" disable>*
+					<input name="mem_uid" type="text" value='<%= member.getMem_uid() %>' size="20" readonly="readonly">*
 				</td>
 			</tr>
 			<tr height="30">
 				<td width="80">암    호</td>
 				<td>
-					<input name="mem_pwd" type="text" value='<%= member.getMem_pwd() %>' size="20">*
+					<input name="mem_pwd" type="text" size="20">*
 				</td>
 			</tr>
 			<tr height="30">
 				<td width="80">암호 확인</td>
 				<td>
-					<input name="pwd_check" type="text" value='<%= member.getMem_pwd() %>' size="20">*
+					<input name="pwd_check" type="text" size="20">*
 				</td>
 			</tr>
 			<tr height="30">
 				<td width="80">이   름</td>
 				<td>
-					<input name="mem_name" type="text" value='<%= member.getMem_name() %>' size="20">*
+					<input name="mem_name" type="text" size="20">*
 				</td>
 			</tr>
 			<tr height="30">
 				<td width="80">E-mail</td>
 				<td>
-					<input name="mem_email" type="text" value='<%= member.getMem_email() %>' size="30">*
+					<input name="mem_email" type="text" size="30">*
 				</td>
 			</tr>
 			<tr height="30">
 				<td width="80">주    소</td>
 				<td>
-					<input name="mem_address" type="text" value='<%= member.getMem_address() %>' size="40">
+					<input name="mem_address" type="text" size="40">
 				</td>
 			</tr>
 			<tr height="30">

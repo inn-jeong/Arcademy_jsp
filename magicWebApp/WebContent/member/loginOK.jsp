@@ -1,4 +1,5 @@
 
+<%@page import="javax.naming.NamingException"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="java.sql.ResultSet"%>
@@ -31,13 +32,8 @@
 		pw = request.getParameter("mem_pwd");
 		
 		try{
-			conn = ((DataSource)(new InitialContext().lookup("java:comp/env/jdbc/oracle"))).getConnection();
-			StringBuffer selectQuery = new StringBuffer();
-			selectQuery.append("select * from memberT where mem_uid=?");
-			pstmt = conn.prepareStatement(selectQuery.toString());
-			pstmt.setString(1, id);
-			
-			rs = pstmt.executeQuery();
+			conn = DBbean.init();
+			rs = DBbean.selectID(id);
 
 			if(rs.next()){
 				DBbean.setProperty(rs);
@@ -66,7 +62,13 @@
 			%>
 				서버불량, 잠시 후 다시 시도
 			<%
+		} catch(NamingException ne){
+			ne.printStackTrace();
+			%>
+				서버불량, 잠시 후 다시 시도
+			<%
 		}
+		
 	%>
 </body>
 </html>

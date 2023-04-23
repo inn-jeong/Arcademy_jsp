@@ -7,12 +7,12 @@ public class MemberBean {
 	private String mem_email;
 	private String mem_address;
 	
-	public void setProperty(MemberDBBean property){
-		this.mem_uid = property.getMem_uid();
-		this.mem_pwd = property.getMem_pwd();
-		this.mem_name = property.getMem_name();
-		this.mem_email = property.getMem_email();
-		this.mem_address = property.getMem_address();
+	public void setProperty(MemberDBBean dbB){
+		this.mem_uid = dbB.getMem_uid();
+		this.mem_pwd = dbB.getMem_pwd();
+		this.mem_name = dbB.getMem_name();
+		this.mem_email = dbB.getMem_email();
+		this.mem_address = dbB.getMem_address();
 	}
 	public String getMem_uid() {
 		return mem_uid;

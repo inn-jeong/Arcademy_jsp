@@ -1,3 +1,4 @@
+<%@page import="javax.naming.NamingException"%>
 <%@page import="javax.sql.*"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="java.sql.*"%>
@@ -18,19 +19,14 @@
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		boolean flag_fail = false;
 	%>
 	<%	
 		try{
-			String select = "select * from memberT where mem_uid=?";
-			conn = ((DataSource)(new InitialContext().lookup("java:comp/env/jdbc/oracle"))).getConnection();
-			pstmt = conn.prepareStatement(select);
-			pstmt.setString(1, member.getMem_uid());
-			
-			rs = pstmt.executeQuery();
-			if(rs.next()) DBbean.setProperty(rs);
-			if(DBbean.getMem_uid() != null){
-				flag_fail = true;
+			DBbean.init();
+			rs = DBbean.selectID(member.getMem_uid());
+			if(rs.next()){
+				DBbean.setProperty(rs);
+				member.setProperty(DBbean);
 				%>
 				<script>
 					alert("이미 사용중인 ID입니다.");
@@ -39,23 +35,12 @@
 				<%
 				return;//중복 아이디가 있을 경우 try를 탈출하여 등록 방지
 			}
+			int re;
 			if(member.getMem_address() == null){
-				String insert = "INSERT INTO MEMBERT(MEM_UID,MEM_PWD,MEM_NAME,MEM_EMAIL) VALUES(?,?,?,?)";
-				pstmt = conn.prepareStatement(insert);
-				pstmt.setString(1, member.getMem_uid());
-				pstmt.setString(2, member.getMem_pwd());
-				pstmt.setString(3, member.getMem_name());
-				pstmt.setString(4, member.getMem_email());
+				re = DBbean.insert(member);
 			}else{
-				String insert = "INSERT INTO MEMBERT VALUES(?,?,?,?,?)";
-				pstmt = conn.prepareStatement(insert);
-				pstmt.setString(1, member.getMem_uid());
-				pstmt.setString(2, member.getMem_pwd());
-				pstmt.setString(3, member.getMem_name());
-				pstmt.setString(4, member.getMem_email());
-				pstmt.setString(5, member.getMem_address());
+				re = DBbean.insert_all(member);
 			}
-			int re = pstmt.executeUpdate();
 			if(re == 1){
 				%>
 	 				등록 성공
@@ -67,6 +52,11 @@
 			}
 		} catch(SQLException se){
 			se.printStackTrace();
+			%>
+				서버불량, 잠시 후 다시 시도
+			<%
+		} catch(NamingException ne){
+			ne.printStackTrace();
 			%>
 				서버불량, 잠시 후 다시 시도
 			<%
