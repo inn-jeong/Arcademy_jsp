@@ -1,3 +1,4 @@
+<%@page import="magic.member.MemberDBBean"%>
 <%@page import="javax.naming.NamingException"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="javax.naming.InitialContext"%>
@@ -15,40 +16,34 @@
 </head>
 <body>
 	<% request.setCharacterEncoding("utf-8"); %>
-	<jsp:useBean class="magic.member.MemberBean" id="member" scope="session"></jsp:useBean>
-	<jsp:useBean class="magic.member.MemberDBBean" id="DBbean"></jsp:useBean>
-	<jsp:setProperty property="*" name="member"/>
+	<jsp:useBean class="magic.member.MemberBean" id="mb"></jsp:useBean>
+	<jsp:setProperty property="*" name="mb"/>
 	<%
-		try{
-			DBbean.init();//연동 시작
-			int re;
-			if(member.getMem_address() == null){
-				re = DBbean.update(member);
-			}else{
-				re = DBbean.update_all(member);
-			}
-			if(re == 1){
-				%>
-	 				수정 성공 <br>
-	 				[<a href="main.jsp">메인화면으로</a>]
-				<%
-			}else{
-				%>
-					수정 실패
-					[<a href="memberUpdate.jsp">돌아가기</a>]
-				<%
-			}
-		}catch(NamingException ne){
-			ne.printStackTrace();
+		MemberDBBean manager = MemberDBBean.getInstance();
+		System.out.println(mb.getMem_pwd());
+		System.out.println(mb.getMem_email());
+		System.out.println(mb.getMem_address());
+		int re=-1;
+		re = manager.updateMember(mb);
+		if(re==1){
+			session.setAttribute("mem_pwd", mb.getMem_pwd());
+			session.setAttribute("mem_email", mb.getMem_email());
+			session.setAttribute("mem_address", mb.getMem_address());
 			%>
-				서버불량, 잠시 후 다시 시도
-			<%
-		}catch(SQLException se){
-			se.printStackTrace();
+				<script>
+					alert("수정 완료");
+					location.href="main.jsp";
+				</script>
+			<%	
+		}else{
 			%>
-				서버불량, 잠시 후 다시 시도
+				<script>
+					alert("수정 실패");
+					location.href="memberUpdate.jsp";
+				</script>
 			<%
 		}
+
 	%>
 	
 	

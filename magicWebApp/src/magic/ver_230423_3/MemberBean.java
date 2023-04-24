@@ -1,4 +1,4 @@
-package magic.member;
+package magic.ver_230423_3;
 
 public class MemberBean {
 	private String mem_uid;
@@ -7,13 +7,13 @@ public class MemberBean {
 	private String mem_email;
 	private String mem_address;
 	
-//	public void setProperty(MemberDBBean dbB){
-//		this.mem_uid = dbB.getMem_uid();
-//		this.mem_pwd = dbB.getMem_pwd();
-//		this.mem_name = dbB.getMem_name();
-//		this.mem_email = dbB.getMem_email();
-//		this.mem_address = dbB.getMem_address();
-//	}
+	public void setProperty(MemberDBBean dbB){
+		this.mem_uid = dbB.getMem_uid();
+		this.mem_pwd = dbB.getMem_pwd();
+		this.mem_name = dbB.getMem_name();
+		this.mem_email = dbB.getMem_email();
+		this.mem_address = dbB.getMem_address();
+	}
 	public String getMem_uid() {
 		return mem_uid;
 	}

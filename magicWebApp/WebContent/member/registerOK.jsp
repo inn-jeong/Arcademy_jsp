@@ -1,3 +1,4 @@
+<%@page import="magic.member.MemberDBBean"%>
 <%@page import="javax.naming.NamingException"%>
 <%@page import="javax.sql.*"%>
 <%@page import="javax.naming.InitialContext"%>
@@ -12,54 +13,36 @@
 </head>
 <body>
 	<% request.setCharacterEncoding("utf-8"); %>
-	<jsp:useBean class="magic.member.MemberDBBean" id="DBbean"></jsp:useBean>
-	<jsp:useBean class="magic.member.MemberBean" id="member"></jsp:useBean>
-	<jsp:setProperty property="*" name="member"/>
-	<%!
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-	%>
+	<jsp:useBean class="magic.member.MemberBean" id="mb"></jsp:useBean>
+<!-- 	폼 양식에서 전달되는 파라미터 값 얻어와서 mb 객체의 프로퍼티 값으로 저장 -->
+	<jsp:setProperty property="*" name="mb"/>
 	<%	
-		try{
-			DBbean.init();
-			rs = DBbean.selectID(member.getMem_uid());
-			if(rs.next()){
-				DBbean.setProperty(rs);
-				member.setProperty(DBbean);
-				%>
+		MemberDBBean manager = MemberDBBean.getInstance();
+		if(manager.confirmID(mb.getMem_uid())==1){//아이디 중복
+			%>
 				<script>
-					alert("이미 사용중인 ID입니다.");
+					alert("중복되는 아이디가 존재합니다.");
+// 					location.href="register.jsp";
+					history.back();
 				</script>
-				<a href="register.jsp">[회원가입]</a>
-				<%
-				return;//중복 아이디가 있을 경우 try를 탈출하여 등록 방지
-			}
-			int re;
-			if(member.getMem_address() == null){
-				re = DBbean.insert(member);
-			}else{
-				re = DBbean.insert_all(member);
-			}
+			<%
+		}else{//아이디 중복 아님
+			int re = manager.insertMember(mb);
 			if(re == 1){
 				%>
-	 				등록 성공
+					<script>
+						alert("회원가입을 축하드립니다.\n회원으로 로그인 해주세요.");
+						location.href="login.jsp";
+					</script>
 				<%
 			}else{
 				%>
-					등록 실패
+					<script>
+						alert("회원가입에 실패했습니다.");
+						location.href="login.jsp";
+					</script>
 				<%
 			}
-		} catch(SQLException se){
-			se.printStackTrace();
-			%>
-				서버불량, 잠시 후 다시 시도
-			<%
-		} catch(NamingException ne){
-			ne.printStackTrace();
-			%>
-				서버불량, 잠시 후 다시 시도
-			<%
 		}
 	%>
 </body>
