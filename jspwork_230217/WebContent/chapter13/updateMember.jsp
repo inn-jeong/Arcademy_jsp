@@ -1,5 +1,5 @@
-<%@page import="javax.naming.*"%>
-<%@page import="javax.sql.DataSource"%>
+<%@ page import="javax.naming.*"%>
+<%@ page import="javax.sql.DataSource"%>
 <%@ page import="java.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -35,18 +35,22 @@
 // 			1. id 를 가지고 회원정보를 가지고 옴(select 쿼리 작업이 추가로 필요함)
 // 			2. viewMember.jsp에서 직접 값들을 가지고 옴(다른 화면에서 수정시 값들이 반영이 안됨)
 			StringBuffer selectQuery = new StringBuffer();
+			
 			//실무에서는 모든 컬럼을 가져오다보면 속도 문제로 *를 잘 쓰지 않음.
 			//필요한 컬럼의 데이터만 가져올 수 있도록 한다.
 			//? -> prepareStatement 방식, 밑에서 ?의 개수만큼 값을 넣어주면 됨.
 			//id값은 request.getParameter 로 가져옴
 			selectQuery.append("SELECT NAME, CLASS, TEL FROM MEMBER2 WHERE ID=?");
 			String id = request.getParameter("id");
+
 // 			dbcp 연결 정보 객체(conn)를 가지고, prepareStatement 메소드 호출해서 
 // 			PrepareStatement 객체 생성해서 쿼리 사용
 			pstmt = conn.prepareStatement(selectQuery.toString());
+
 			//?의 개수가 하나이므로 첫번째 물음표라는 의미의 매개변수값이 1
 			//setString() 메소드: 쿼리 파라미터 값을 저장
 			pstmt.setString(1, id);
+			
 			//executeQuery 메소드로 쿼리 실행해서 결과값을 ResultSet 객체로 받음
 			rs = pstmt.executeQuery();
 			
