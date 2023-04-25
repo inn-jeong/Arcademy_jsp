@@ -40,8 +40,7 @@ function check_OK(){
 }
 
 function update_check_OK(){
-	//유효성 검사(validation check)
-	//document 생략해도 됨
+
 	if(reg_frm.mem_pwd.value.length == 0){
 		alert("패스워드는 반드시 입력해야 합니다.");
 		reg_frm.mem_pwd.focus();
