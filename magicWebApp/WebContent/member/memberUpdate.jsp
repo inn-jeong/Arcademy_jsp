@@ -22,8 +22,7 @@
 			<tr height="30">
 				<td width="80">User ID</td>
 				<td>
-					<input name="mem_uid" type="text" value="<%= (String)session.getAttribute("mem_uid") %>" size="30" readonly="readonly">
-				</td>
+					<%= (String)session.getAttribute("mem_uid") %>
 			</tr>
 			<tr height="30">
 				<td width="80">암    호</td>
@@ -40,7 +39,7 @@
 			<tr height="30">
 				<td width="80">이   름</td>
 				<td>
-					<input name="mem_name" type="text" value="<%= (String)session.getAttribute("mem_name") %>" size="30" readonly="readonly">
+					<%= (String)session.getAttribute("mem_name") %>
 				</td>
 			</tr>
 			<tr height="30">
