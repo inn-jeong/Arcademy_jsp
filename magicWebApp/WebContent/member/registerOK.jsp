@@ -26,7 +26,7 @@
 					history.back();
 				</script>
 			<%
-		}else{//아이디 중복 아님
+		}else{//아이디 중복 아님 
 			int re = manager.insertMember(mb);
 			if(re == 1){
 				%>

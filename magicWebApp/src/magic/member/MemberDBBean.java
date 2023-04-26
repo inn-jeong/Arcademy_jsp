@@ -158,11 +158,17 @@ public class MemberDBBean {
 			re = pstmt.executeUpdate();
 			pstmt.close();
 			conn.close();
-			System.out.println("수정 성공");
+			
+//			오류가 나도 출력되므로 주석처리
+//			System.out.println("수정 성공");
 		} catch (Exception e) {
 			System.out.println("수정 실패");
 			e.printStackTrace();
 		}
 		return re;
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> branch 'master' of https://github.com/inn-jeong/Arcademy_jsp.git
 }

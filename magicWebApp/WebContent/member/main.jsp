@@ -26,41 +26,7 @@
 		name = (String)session.getAttribute("mem_name");
 	%>
 	<table border="1" align="center">
-<!-- 		<tr height="50"> -->
-<!-- 			<td colspan="2" align="center"> -->
-<!-- 				<h1>회원 정보</h1> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr height="30"> -->
-<!-- 			<td width="80">User ID</td> -->
-<!-- 			<td> -->
-<%-- 				<%= mb.getMem_uid() %> --%>
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr height="30"> -->
-<!-- 			<td width="80">암    호</td> -->
-<!-- 			<td> -->
-<%-- 				<%= mb.getMem_pwd() %> --%>
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr height="30"> -->
-<!-- 			<td width="80">이   름</td> -->
-<!-- 			<td> -->
-<%-- 				<%= mb.getMem_name() %> --%>
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr height="30"> -->
-<!-- 			<td width="80">E-mail</td> -->
-<!-- 			<td> -->
-<%-- 				<%= mb.getMem_email() %> --%>
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr height="30"> -->
-<!-- 			<td width="80">주    소</td> -->
-<!-- 			<td> -->
-<%-- 				<%= mb.getMem_address() %> --%>
-<!-- 			</td> -->
-<!-- 		</tr> -->
+
 		<tr height="30">
 			<td>
 				안녕하세요. <%= name+"("+id+")"+"님" %>

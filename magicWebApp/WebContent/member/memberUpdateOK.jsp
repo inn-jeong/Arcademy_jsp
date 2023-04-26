@@ -20,9 +20,8 @@
 	<jsp:setProperty property="*" name="mb"/>
 	<%
 		MemberDBBean manager = MemberDBBean.getInstance();
-		System.out.println(mb.getMem_pwd());
-		System.out.println(mb.getMem_email());
-		System.out.println(mb.getMem_address());
+		String uid = (String)session.getAttribute("mem_uid");
+		mb.setMem_uid(uid);
 		int re=-1;
 		re = manager.updateMember(mb);
 		if(re==1){
