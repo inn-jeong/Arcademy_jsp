@@ -14,10 +14,14 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="/Users/roy/Downloads/ojdbc8-full/ojdbc8.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+=======
+	<classpathentry kind="lib" path="C:/Tomcat 9.0/lib/ojdbc6.jar"/>
+>>>>>>> branch 'master' of https://github.com/inn-jeong/Arcademy_jsp.git
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
