@@ -167,8 +167,5 @@ public class MemberDBBean {
 		}
 		return re;
 	}
-<<<<<<< HEAD
-=======
 	
->>>>>>> branch 'master' of https://github.com/inn-jeong/Arcademy_jsp.git
 }

@@ -1,11 +1,16 @@
 package magic.board;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class BoardDBBean {
@@ -30,12 +35,13 @@ public class BoardDBBean {
 		try {
 			conn = getConnection();
 			sql = "INSERT INTO BOARDT "
-					+ "VALUES((SELECT NVL(MAX(B_ID),0)+1 FROM BOARDT),?,?,?,?)";
+					+ "VALUES((SELECT NVL(MAX(B_ID),0)+1 FROM BOARDT),?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, board.getB_name());
 			pstmt.setString(2, board.getB_email());
 			pstmt.setString(3, board.getB_title());
 			pstmt.setString(4, board.getB_content());
+			pstmt.setTimestamp(5, board.getB_date());
 			//INSERT는 executeUpdate 메소드 호출
 			re = pstmt.executeUpdate();
 			pstmt.close();
@@ -45,5 +51,62 @@ public class BoardDBBean {
 			e.printStackTrace();
 		}
 		return re;
+	}
+	
+	public ArrayList<BoardBean> listBoard(){
+		ArrayList<BoardBean> list= new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT b_id,b_name,b_email,b_title,b_content,b_date "
+					+ "FROM BOARDT ORDER BY b_id";
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardBean board = new BoardBean();
+				board.setB_id(rs.getInt("b_id"));
+				board.setB_name(rs.getString("b_name"));
+				board.setB_email(rs.getString("b_email"));
+				board.setB_title(rs.getString("b_title"));
+				board.setB_content(rs.getString("b_content"));
+				board.setB_date(rs.getTimestamp("b_date"));
+				list.add(board);
+			}
+			rs.close();
+			pstmt.close();
+			conn.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public BoardBean getBoard(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardBean board = new BoardBean();
+		String sql = "SELECT b_name,b_title,b_content,b_date "
+					+ "FROM BOARDT WHERE b_id ="+num;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				board.setB_name(rs.getString("b_name"));
+				board.setB_title(rs.getString("b_title"));
+				board.setB_content(rs.getString("b_content"));
+				board.setB_date(rs.getTimestamp("b_date"));
+			}else {
+				System.out.println("불러오기 실패");
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return board;
 	}
 }

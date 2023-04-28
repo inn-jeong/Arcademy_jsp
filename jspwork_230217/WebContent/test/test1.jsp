@@ -60,14 +60,13 @@
 					}
 				%></tr><%
 			}
+			rs.close();
+			pstmt.close();
+			conn.close();
 		}catch(SQLException se){
 			se.printStackTrace();
 		}catch(NamingException ne){
 			ne.printStackTrace();
-		}finally{
-			rs.close();
-			pstmt.close();
-			conn.close();
 		}
 	%>
 	</table>
