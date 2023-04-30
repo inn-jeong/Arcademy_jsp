@@ -1,4 +1,4 @@
-package magic.board;
+package magic.board.ver_230428;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,8 +32,10 @@ public class BoardDBBean {
 		int re = -1;
 		try {
 			conn = getConnection();
+//			sql = "INSERT INTO BOARDT "
+//					+ "VALUES((SELECT NVL(MAX(B_ID),0)+1 FROM BOARDT),?,?,?,?)";
 			sql = "INSERT INTO BOARDT "
-					+ "VALUES((SELECT NVL(MAX(B_ID),0)+1 FROM BOARDT),?,?,?,?)";
+					+ "VALUES(?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, board.getB_name());
 			pstmt.setString(2, board.getB_email());
@@ -64,7 +66,7 @@ public class BoardDBBean {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				BoardBean board = new BoardBean();
-				board.setB_id(rs.getInt("b_id"));
+//				board.setB_id(rs.getInt("b_id"));
 				board.setB_name(rs.getString("b_name"));
 				board.setB_email(rs.getString("b_email"));
 				board.setB_title(rs.getString("b_title"));

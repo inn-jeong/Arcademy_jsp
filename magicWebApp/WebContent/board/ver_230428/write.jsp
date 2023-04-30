@@ -8,7 +8,7 @@
 <script type="text/javascript" src="board.js"></script>
 </head>
 <body>
-	<form name="reg_frm" method="post" action="write_ok.jsp">
+	<form name="reg_frm" method="get" action="write_ok.jsp">
 		<table align="center">
 			<tr height="50">
 				<td colspan="4" align="center">
@@ -37,7 +37,6 @@
 					<textarea name="b_content" rows="10" cols="53"></textarea>
 				</td>
 			</tr>
-
 			<tr height="30">
 				<td width="80" colspan="4" align="center">
 					<input type="button" value="글쓰기" onclick="check_ok();">

@@ -35,7 +35,7 @@
 					String b_name = list.get(i).getB_name();
 					String b_title = list.get(i).getB_title();
 					String b_email = list.get(i).getB_email();
-					%>
+			%>
 					<tr height="30" 
 					 bgcolor="#f7f7f7"
 					 onmouseover="this.style.background='#ddd'"
@@ -44,7 +44,7 @@
 						<td><a href="show.jsp?b_id=<%= b_id %>"><%= b_title %></a></td>
 						<td align="center"> <a href="mailto:<%= b_email %>"> <%= b_name %></a></td>
 					</tr>
-					<%
+			<%
 				}
 			%>
 		</table>	

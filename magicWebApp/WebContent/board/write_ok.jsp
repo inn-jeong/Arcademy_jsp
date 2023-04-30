@@ -2,6 +2,9 @@
 <%@page import="magic.board.BoardDBBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+	request.setCharacterEncoding("utf-8"); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +18,8 @@
 	<%
 		board.setB_date(new Timestamp(System.currentTimeMillis()));
 		BoardDBBean manager = BoardDBBean.getInstance();
+		
+		
 		int re = manager.insertBoard(board);
 		if(re == 1){
 			%>

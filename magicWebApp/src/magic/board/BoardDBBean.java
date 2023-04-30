@@ -14,7 +14,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class BoardDBBean {
-	public static BoardDBBean  instance = new BoardDBBean();
+	public static BoardDBBean instance = new BoardDBBean();
 	
 	public static BoardDBBean getInstance() {
 		return instance;
@@ -31,7 +31,7 @@ public class BoardDBBean {
 		String sql = "";
 //		int num;
 //		int maxNum = maxId()+1;
-		int re = -1;
+		int re = -1; //insert 결과값(-1:실패,1성공)
 		try {
 			conn = getConnection();
 			sql = "INSERT INTO BOARDT "
@@ -50,6 +50,7 @@ public class BoardDBBean {
 			System.out.println("sql 오류 발생");
 			e.printStackTrace();
 		}
+		
 		return re;
 	}
 	
@@ -81,8 +82,10 @@ public class BoardDBBean {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return list;
 	}
+	
 	public BoardBean getBoard(int num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
