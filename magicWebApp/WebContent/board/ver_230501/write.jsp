@@ -37,12 +37,7 @@
 					<textarea name="b_content" rows="10" cols="53"></textarea>
 				</td>
 			</tr>
-			<tr height="30">
-				<td width="80">암호</td>
-				<td colspan="3">
-					<input name="b_pwd" type="password" size="12" maxlength="12">
-				</td>
-			</tr>
+
 			<tr height="30">
 				<td width="80" colspan="4" align="center">
 					<input type="button" value="글쓰기" onclick="check_ok();">

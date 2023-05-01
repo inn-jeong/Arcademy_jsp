@@ -12,23 +12,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
+	<%!
 		BoardDBBean db = BoardDBBean.getInstance();
 		ArrayList<BoardBean> list = db.listBoard();
-		int b_id, b_hit;
+		int b_id;
 		String b_name,b_title,b_email,b_content;
 		Timestamp b_date;
 		String b_date2;
 		SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd hh:mm");
 	%>
-	<script>
-		window.onpageshow = function(event){
-// 			if(event.persisted || (window.performance && window.performance.navigation.type==2)){
-			if(event.persisted || (window.performance && window.performance.navigation.type==2)){
-				location.reload();
-			}
-		}
-	</script>
 	<div align="center" >
 		<h1 align="center">게시판에 등록된 글 목록 보기</h1>
 		<table>
@@ -44,7 +36,6 @@
 				<td width="500" align="center">글제목</td>
 				<td width="200" align="center">작성자</td>
 				<td width="200" align="center">작성일</td>
-				<td width="100" align="center">조회수</td>
 			</tr>
 		<%
 				for(int i=0; i<list.size(); i++){
@@ -52,10 +43,9 @@
 					b_name = list.get(i).getB_name();
 					b_title = list.get(i).getB_title();
 					b_email = list.get(i).getB_email();
-					b_date = list.get(i).getB_date();
-					String str = sdf.format(b_date);
-// 					b_date2 = list.get(i).getB_date2();
-					b_hit = list.get(i).getB_hit();
+// 					b_date = list.get(i).getB_date();
+// 					String str = sdf.format(b_date);
+					b_date2 = list.get(i).getB_date2();
  					//System.out.println(list.get(i).getB_date().toString());
 		%>
 			<tr height="30" 
@@ -65,10 +55,8 @@
 				<td align="center"><%= list.get(i).getB_id() %></td>
 				<td><a id="tag<%= i %>" href="show.jsp?b_id=<%= b_id %>"><%= b_title %></a></td>
 				<td align="center"> <a href="mailto:<%= b_email %>"> <%= b_name %></a></td>
-				<td><%= str %></td>
-<%-- 				<td><%= b_date2 %></td> --%>
-				<td><%= b_hit %></td>
-				
+<%-- 				<td><%= str %></td> --%>
+				<td><%= b_date2 %></td>
 			</tr>
 			
 		<%

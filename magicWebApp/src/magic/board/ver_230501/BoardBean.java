@@ -11,14 +11,7 @@ public class BoardBean {
 	private Timestamp b_date;
 	private String b_date2;
 	private int b_hit;
-	private String b_pwd;
 	
-	public String getB_pwd() {
-		return b_pwd;
-	}
-	public void setB_pwd(String b_pwd) {
-		this.b_pwd = b_pwd;
-	}
 	public int getB_hit() {
 		return b_hit;
 	}
