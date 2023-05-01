@@ -1,6 +1,6 @@
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="magic.board.BoardDBBean"%>
-<%@page import="magic.board.BoardBean"%>
+<%@page import="magic.board.ver_230501.BoardDBBean"%>
+<%@page import="magic.board.ver_230501.BoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>

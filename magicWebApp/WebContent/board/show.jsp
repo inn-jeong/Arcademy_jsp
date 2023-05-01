@@ -24,7 +24,6 @@
 				<td width="200" align="center" ><%= num %></td>
 				<td width="100" align="center">조회수</td>
 				<td width="200" align="center" ><%= board.getB_hit() %></td>
-				
 			</tr>
 			<tr height="30" >
 				<td align="center" width="100">작성자</td>

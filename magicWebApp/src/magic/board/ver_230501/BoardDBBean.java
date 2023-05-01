@@ -1,4 +1,4 @@
-package magic.board;
+package magic.board.ver_230501;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -59,7 +59,7 @@ public class BoardDBBean {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT b_id,b_name,b_email,b_title,b_content,b_date,b_hit "
+		String sql = "SELECT b_id,b_name,b_email,b_title,b_content,b_date "
 					+ "FROM BOARDT ORDER BY b_id";
 //		String sql = "SELECT b_id,b_name,b_email,b_title,b_content,TO_CHAR(b_date,'YYYY-MM-DD HH24:MI') "
 //				+ "FROM BOARDT ORDER BY b_id";
@@ -77,7 +77,7 @@ public class BoardDBBean {
 				board.setB_content(rs.getString(5));
 				board.setB_date(rs.getTimestamp("b_date"));
 //				board.setB_date2(rs.getString(6));
-				board.setB_hit(rs.getInt(7));
+//				board.setB_hit(rs.getInt(7));
 				list.add(board);
 			}
 			rs.close();
@@ -96,7 +96,7 @@ public class BoardDBBean {
 		ResultSet rs = null;
 		BoardBean board = new BoardBean();
 		int hit=0;
-		String sql = "SELECT b_name,b_title,b_content,b_date,b_hit "
+		String sql = "SELECT b_name,b_title,b_content,b_date "
 					+ "FROM BOARDT WHERE b_id ="+num;
 		String updateSql = "UPDATE BOARDT SET"
 				+ "B_HIT=? WHERE B_ID=?";
@@ -106,20 +106,20 @@ public class BoardDBBean {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				hit = rs.getInt(5)+1;
+				//hit = rs.getInt(5)+1;
 				board.setB_name(rs.getString(1));
 				board.setB_title(rs.getString(2));
 				board.setB_content(rs.getString(3));
 				board.setB_date(rs.getTimestamp(4));
-				board.setB_hit(hit);
+				//board.setB_hit(hit);
 			}else {
 				System.out.println("불러오기 실패");
 			}
-			pstmt = conn.prepareStatement(updateSql);
-			pstmt.setInt(1, hit);
-			pstmt.setInt(2,num);
-			int re = pstmt.executeUpdate();
-			if(re != 1) System.out.println("수정 실패");
+			//pstmt = conn.prepareStatement(updateSql);
+			//pstmt.setInt(1, hit);
+			//pstmt.setInt(2,num);
+			//int re = pstmt.executeUpdate();
+			//if(re != 1) System.out.println("수정 실패");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

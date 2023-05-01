@@ -1,8 +1,8 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.sql.Timestamp"%>
-<%@page import="magic.board.BoardBean"%>
+<%@page import="magic.board.ver_230501.BoardBean"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="magic.board.BoardDBBean"%>
+<%@page import="magic.board.ver_230501.BoardDBBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -43,9 +43,9 @@
 					b_name = list.get(i).getB_name();
 					b_title = list.get(i).getB_title();
 					b_email = list.get(i).getB_email();
-// 					b_date = list.get(i).getB_date();
-// 					String str = sdf.format(b_date);
-					b_date2 = list.get(i).getB_date2();
+ 					b_date = list.get(i).getB_date();
+ 					String str = sdf.format(b_date);
+					//b_date2 = list.get(i).getB_date2();
  					//System.out.println(list.get(i).getB_date().toString());
 		%>
 			<tr height="30" 
@@ -56,7 +56,7 @@
 				<td><a id="tag<%= i %>" href="show.jsp?b_id=<%= b_id %>"><%= b_title %></a></td>
 				<td align="center"> <a href="mailto:<%= b_email %>"> <%= b_name %></a></td>
 <%-- 				<td><%= str %></td> --%>
-				<td><%= b_date2 %></td>
+				<td><%= str %></td>
 			</tr>
 			
 		<%

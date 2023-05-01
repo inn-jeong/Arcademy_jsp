@@ -1,4 +1,4 @@
-package magic.board;
+package magic.board.ver_230501;
 
 import java.sql.Timestamp;
 

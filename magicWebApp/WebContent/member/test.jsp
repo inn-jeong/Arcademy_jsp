@@ -12,6 +12,6 @@
 </head>
 <body>
 	
-	<a href="test2.jsp?a=">link</a>
+	<a href="test2.jsp?a=3">link</a>
 </body>
 </html>
