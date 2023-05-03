@@ -23,7 +23,6 @@
 	%>
 	<script>
 		window.onpageshow = function(event){
-// 			if(event.persisted || (window.performance && window.performance.navigation.type==2)){
 			if(event.persisted || (window.performance && window.performance.navigation.type==2)){
 				location.reload();
 			}
@@ -46,7 +45,7 @@
 				<td width="200" align="center">작성일</td>
 				<td width="100" align="center">조회수</td>
 			</tr>
-		<%
+	<%
 				for(int i=0; i<list.size(); i++){
 					b_id = list.get(i).getB_id();
 					b_name = list.get(i).getB_name();
@@ -57,7 +56,7 @@
 // 					b_date2 = list.get(i).getB_date2();
 					b_hit = list.get(i).getB_hit();
  					//System.out.println(list.get(i).getB_date().toString());
-		%>
+	%>
 			<tr height="30" 
 			 bgcolor="#f7f7f7"
 			 onmouseover="this.style.background='#ddd'"
@@ -71,9 +70,9 @@
 				
 			</tr>
 			
-		<%
+	<%
 				}
-		%>
+	%>
 		
 		</table>	
 	</div>
