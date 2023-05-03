@@ -17,6 +17,7 @@
 	
 	<%
 		board.setB_date(new Timestamp(System.currentTimeMillis()));
+		board.setB_ip(request.getRemoteAddr());
 		BoardDBBean manager = BoardDBBean.getInstance();
 		
 		

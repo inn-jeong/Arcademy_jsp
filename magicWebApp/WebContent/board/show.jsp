@@ -14,7 +14,7 @@
 		BoardDBBean db = BoardDBBean.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd hh:mm");
 		int num = Integer.parseInt(request.getParameter("b_id"));
-		BoardBean board = db.getBoard(num);
+		BoardBean board = db.getBoard(num,true);
 	%>
 	<div align="center" >
 		<h1 align="center">글 내 용 보 기</h1>
@@ -40,15 +40,13 @@
 				<td colspan="3"><%= board.getB_content() %></td>
 			</tr>
 			<tr height="30" >
-				<td colspan="4" align="right"> <input type="button" value="글삭제" onclick="javascript:window.location='delete.jsp?b_id=<%= num%>'"> </td>			
-			</tr>
-		</table>
-		<table>
-			<tr height="30" >
-				<td width="100"></td>
-				<td width="200"></td>
-				<td width="100"></td>
-				<td width="200" align="center"><a href="list.jsp">목록보기</a></td>
+				<td colspan="4" align="right">
+				 <input type="button" value="글수정" onclick="javascript:window.location='edit.jsp?b_id=<%= num%>'">
+				 &nbsp;&nbsp;&nbsp;&nbsp; 
+				 <input type="button" value="글삭제" onclick="javascript:window.location='delete.jsp?b_id=<%= num%>'">
+				 &nbsp;&nbsp;&nbsp;&nbsp;  
+				 <input type="button" value="글목록" onclick="javascript:window.location='list.jsp'"> 
+				 </td>			
 			</tr>
 		</table>
 	</div>
