@@ -7,8 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%=
-		request.getParameter("a")
+	<%
+		String str = request.getParameter("str");
+	
+			if(str.equals("next")){
+	%>
+		<script>
+					alert("다음 페이로 넘어갑니다.");
+// 					location.href="register.jsp";
+// 					history.back();
+		</script>
+	<%
+			response.sendRedirect("test3.jsp");
+		}
 	%>
 </body>
 </html>

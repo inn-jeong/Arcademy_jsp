@@ -52,13 +52,19 @@
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
-				%><tr><%
-					for(int i=1;i<=8;i++){
-						%>
-						<td><%= rs.getString(i) %></td>
-						<%
-					}
-				%></tr><%
+	%>
+		<tr>
+	<%
+				for(int i=1;i<=8;i++){
+	%>
+		<td>
+			<%= rs.getString(i) %>
+		</td>
+	<%
+				}
+	%>
+		</tr>
+	<%
 			}
 			rs.close();
 			pstmt.close();

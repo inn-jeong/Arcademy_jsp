@@ -11,7 +11,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-	<a href="test2.jsp?a=3">link</a>
+	<form method="post" action="test2.jsp">
+		- next 입력 - <br>
+		<input type="text" name="str" size="10"> <br>
+		<input type="submit" value="전송">
+	</form>
 </body>
 </html>
