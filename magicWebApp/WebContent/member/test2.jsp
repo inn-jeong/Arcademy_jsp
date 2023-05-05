@@ -10,15 +10,22 @@
 	<%
 		String str = request.getParameter("str");
 	
-			if(str.equals("next")){
+		if(str.equals("next")){
 	%>
 		<script>
-					alert("다음 페이로 넘어갑니다.");
-// 					location.href="register.jsp";
-// 					history.back();
+					alert("올바른 입력");
+ 					location.href="test3.jsp";
 		</script>
 	<%
-			response.sendRedirect("test3.jsp");
+			//response.sendRedirect("test3.jsp");
+		}else{
+	%>
+		
+		<script>
+					alert("잘못 입력하였습니다.");
+ 					history.back();
+		</script>
+	<%
 		}
 	%>
 </body>

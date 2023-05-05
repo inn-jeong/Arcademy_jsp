@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	sendRedirect로 넘어온 페이지
+	history.back() 사용 예시
 </body>
 </html>
