@@ -15,7 +15,7 @@
 	<%
 		BoardDBBean db = BoardDBBean.getInstance();
 		ArrayList<BoardBean> list = db.listBoard();
-		int b_id, b_hit;
+		int b_id, b_hit, b_level;
 		String b_name,b_title,b_email,b_content;
 		Timestamp b_date;
 		String b_date2;
@@ -55,6 +55,7 @@
 					String str = sdf.format(b_date);
 // 					b_date2 = list.get(i).getB_date2();
 					b_hit = list.get(i).getB_hit();
+					b_level = list.get(i).getB_level();
  					//System.out.println(list.get(i).getB_date().toString());
 	%>
 			<tr height="30" 
@@ -62,10 +63,22 @@
 			 onmouseover="this.style.background='#ddd'"
 			 onmouseout="this.style.background='white'">
 				<td align="center"><%= list.get(i).getB_id() %></td>
-				<td><a id="tag<%= i %>" href="show.jsp?b_id=<%= b_id %>"><%= b_title %></a></td>
+				<td>
+	<%
+				if(b_level > 0){
+	%>
+					<% for(int j=0; j<b_level; j++){ %> &nbsp; <% } %>
+					<img src="images/AnswerLine.gif" width="16" height="16">
+					<a href="show.jsp?b_id=<%= b_id %>"><%= b_title %></a>
+	<%
+				}else{
+	%>
+					<a href="show.jsp?b_id=<%= b_id %>"><%= b_title %></a>
+	<%
+				}
+	%>			</td>
 				<td align="center"> <a href="mailto:<%= b_email %>"> <%= b_name %></a></td>
 				<td><%= str %></td>
-<%-- 				<td><%= b_date2 %></td> --%>
 				<td><%= b_hit %></td>
 				
 			</tr>

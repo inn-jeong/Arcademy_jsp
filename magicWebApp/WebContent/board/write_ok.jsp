@@ -1,3 +1,4 @@
+<%@page import="java.net.InetAddress"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="magic.board.BoardDBBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,12 +17,16 @@
 	<jsp:setProperty property="*" name="board"/>
 	
 	<%
-		board.setB_date(new Timestamp(System.currentTimeMillis()));
-		board.setB_ip(request.getRemoteAddr());
+		//자바 클래스 이용해서 IP 추가
+		InetAddress address = InetAddress.getLocalHost();
+		String ip = address.getHostAddress();
+	
+		board.setB_date(new Timestamp(System.currentTimeMillis()));//날짜 추가
+		board.setB_ip(ip);//IP추가
 		BoardDBBean manager = BoardDBBean.getInstance();
-		
-		
-		int re = manager.insertBoard(board);
+		int re = 0;
+		re = manager.insertBoard(board);
+
 		if(re == 1){
 			%>
 				<script>

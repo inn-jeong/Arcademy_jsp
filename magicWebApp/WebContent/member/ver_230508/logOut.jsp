@@ -8,11 +8,8 @@
 </head>
 <body>
 	<%
-		String str = request.getParameter("b_id");
-		String str2;
-		if(str == null) str2 = "null이다.";
-		else str2="null이 아니다.";
+		session.invalidate();
+		response.sendRedirect("login.jsp");
 	%>
-	<%= str2 %>
 </body>
 </html>

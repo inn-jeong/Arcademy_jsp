@@ -45,6 +45,8 @@
 				 &nbsp;&nbsp;&nbsp;&nbsp; 
 				 <input type="button" value="글삭제" onclick="javascript:window.location='delete.jsp?b_id=<%= num%>'">
 				 &nbsp;&nbsp;&nbsp;&nbsp;  
+				 <input type="button" value="답변글" onclick="javascript:window.location='write.jsp?b_id=<%= num%>'">
+				 &nbsp;&nbsp;&nbsp;&nbsp; 
 				 <input type="button" value="글목록" onclick="javascript:window.location='list.jsp'"> 
 				 </td>			
 			</tr>

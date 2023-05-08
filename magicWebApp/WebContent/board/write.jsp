@@ -1,3 +1,5 @@
+<%@page import="magic.board.BoardDBBean"%>
+<%@page import="magic.board.BoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,6 +11,24 @@
 </head>
 <body>
 	<form name="reg_frm" method="post" action="write_ok.jsp">
+	<%
+		String str = "";
+		String b_title="";
+		int b_id = 0;
+		if(request.getParameter("b_id") != null){
+			b_id = Integer.parseInt(request.getParameter("b_id"));
+			BoardDBBean db = BoardDBBean.getInstance();
+			BoardBean bean = db.getBoard(b_id, false);
+			b_title = bean.getB_title();
+			for(int i=0;i<=bean.getB_level();i++)str+="[답변]:";
+	%>
+		<input name="b_id" type="hidden" value="<%=b_id%>">
+		<input name="b_ref" type="hidden" value="<%=bean.getB_ref()%>">
+		<input name="b_level" type="hidden" value="<%=bean.getB_level()%>">
+		<input name="b_step" type="hidden" value="<%=bean.getB_step()%>">
+	<%
+		}
+	%>
 		<table align="center">
 			<tr height="50">
 				<td colspan="4" align="center">
@@ -29,7 +49,18 @@
 			<tr height="30">
 				<td width="80">글제목</td>
 				<td colspan="3">
+	<%
+				if(b_id == 0){
+					%>
 					<input name="b_title" type="text" size="55" maxlength="50">
+					<%
+				}else{
+					%>
+<%-- 					<input name="b_title" type="text" size="55" maxlength="50" value="<%=str%>"> --%>
+					<input name="b_title" type="text" size="55" maxlength="50" value="[답변]:<%=b_title%>">
+					<%
+				}
+	%>
 				</td>
 			</tr>
 			<tr height="80">
