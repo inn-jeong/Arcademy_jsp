@@ -163,7 +163,7 @@ public class BoardDBBean {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT b_id,b_name,b_email,b_title,b_content,b_date,b_hit,b_pwd,b_ip,b_ref,b_step,b_level "
-					+ "FROM BOARDT ORDER BY b_ref,b_step";
+					+ "FROM BOARDT ORDER BY b_ref desc,b_step asc";
 //		String sql = "SELECT b_id,b_name,b_email,b_title,b_content,TO_CHAR(b_date,'YYYY-MM-DD HH24:MI') "
 //				+ "FROM BOARDT ORDER BY b_id";
 		
