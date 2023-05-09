@@ -65,7 +65,7 @@
 			</tr>
 			<tr height="80">
 				<td colspan="4">
-					<textarea name="b_content" rows="10" cols="53"></textarea>
+					<textarea name="b_content" rows="10" cols="70"></textarea>
 				</td>
 			</tr>
 			<tr height="30">
