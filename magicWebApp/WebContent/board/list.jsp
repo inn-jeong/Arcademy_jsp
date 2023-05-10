@@ -28,6 +28,7 @@
 		Timestamp b_date;
 		String b_date2;
 		SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd hh:mm");
+		//db.generateList(64);
 	%>
 	<script>
 		window.onpageshow = function(event){

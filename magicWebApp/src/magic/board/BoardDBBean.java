@@ -1,17 +1,14 @@
 package magic.board;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class BoardDBBean {
@@ -433,6 +430,44 @@ public class BoardDBBean {
 		}
 		
 		return re;
+	}
+	
+	public void generateList(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int re = 0;
+		String sql = "INSERT INTO BOARDT(b_id,b_name,b_email,b_title,b_content,b_date,b_pwd,b_ref,b_step,b_level) "
+				+ "VALUES(?,?,?,?,?,?,?,?,?,?)";
+		try {
+			conn = getConnection();
+			for(int i=1; i<=num; i++) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, i);
+				pstmt.setString(2, i+"");
+				pstmt.setString(3, i+"");
+				pstmt.setString(4, i+"");
+				pstmt.setString(5, i+"");
+				pstmt.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
+				pstmt.setString(7, i+"");
+				pstmt.setString(8, i+"");
+				pstmt.setInt(9, 0);
+				pstmt.setInt(10, 0);
+				re = pstmt.executeUpdate();
+				if(re == 0) {
+					System.out.println("업데이트 실패");
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				pstmt.close();
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
 	}
 
 }
