@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -157,20 +158,80 @@ public class BoardDBBean {
 //		return re;
 //	}
 	
-	public ArrayList<BoardBean> listBoard(){
+//	public ArrayList<BoardBean> listBoard(){
+	public ArrayList<BoardBean> listBoard(String pageNumber){
 		ArrayList<BoardBean> list= new ArrayList<>();
 		Connection conn = null;
-		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rs = null;
+		
+		ResultSet pageSet = null;	//페이지에 관련된 결과값 받기위한 참조변수
+		int dbCount = 0;			//게시글 총개수
+		int absolutePage =1;		//현재 페이지의 첫번째 게시글
+		
 		String sql = "SELECT b_id,b_name,b_email,b_title,b_content,b_date,b_hit,b_pwd,b_ip,b_ref,b_step,b_level "
 					+ "FROM BOARDT ORDER BY b_ref desc,b_step asc";
+		String sql2 = "SELECT COUNT(b_id) FROM BOARDT";
 //		String sql = "SELECT b_id,b_name,b_email,b_title,b_content,TO_CHAR(b_date,'YYYY-MM-DD HH24:MI') "
 //				+ "FROM BOARDT ORDER BY b_id";
 		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+//			stmt = conn.prepareStatement();
+			
+			//페이지 처리를 위한 메소드 파라미터 추가
+			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			pageSet = stmt.executeQuery(sql2);
+			
+			if(pageSet.next()) {//게시글 총 개수 존재 여부
+				dbCount = pageSet.getInt(1);
+				pageSet.close();
+			}
+			
+			//ex>84건인 경우 (84 % 10 = 4)
+			if(dbCount % BoardBean.pageSize == 0) {
+				BoardBean.pageCount = dbCount / BoardBean.pageSize; 
+			}else {//ex>84건인 경우 (84 / 10 + 1 = 8 + 1 = 9)
+				BoardBean.pageCount = dbCount / BoardBean.pageSize + 1;
+			}
+			
+			if(pageNumber != null) {//넘겨오는 페이지 번호가 있는 경우
+				BoardBean.pageNum = Integer.parseInt(pageNumber);
+				//ex> 1: 0*10+1=1; 2: 1*10+1 = 11 =>1페이지는 1,2페이지는 11 
+				absolutePage = (BoardBean.pageNum-1) * BoardBean.pageSize + 1;
+			}
+			
+			rs = stmt.executeQuery(sql);
+			if(rs.next()) {//게시글이 있으면 참
+				rs.absolute(absolutePage);//페이지의 기준 게시글 셋팅
+				int count = 0;
+				while(count < BoardBean.pageSize) {
+					BoardBean board = new BoardBean();
+					board.setB_id(rs.getInt(1));
+					board.setB_name(rs.getString(2));
+					board.setB_email(rs.getString(3));
+					board.setB_title(rs.getString(4));
+					board.setB_content(rs.getString(5));
+					board.setB_date(rs.getTimestamp("b_date"));
+					board.setB_hit(rs.getInt(7));
+					board.setB_pwd(rs.getString(8));
+					board.setB_ip(rs.getString(9));
+					board.setB_ref(rs.getInt(10));
+					board.setB_step(rs.getInt(11));
+					board.setB_level(rs.getInt(12));
+					list.add(board);
+					
+					//페이지 변경시 처리 위한 로직
+					if (rs.isLast()) {
+						break;
+					} else {
+						rs.next();
+					}
+					
+					count++;
+				}
+			}
+			/*
 			while(rs.next()) {
 				BoardBean board = new BoardBean();
 				board.setB_id(rs.getInt(1));
@@ -187,11 +248,17 @@ public class BoardDBBean {
 				board.setB_level(rs.getInt(12));
 				list.add(board);
 			}
-			rs.close();
-			pstmt.close();
-			conn.close();
+			*/
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return list;

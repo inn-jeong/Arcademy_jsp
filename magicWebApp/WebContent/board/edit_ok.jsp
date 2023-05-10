@@ -12,18 +12,15 @@
 	<jsp:setProperty property="*" name="board"/><!--b_id도 알아서 들어감  -->
 	
 	<%
+		//넘어오는 페이지 번호를 변수에 저장
+		String pageNum = request.getParameter("pageNum");
 // 		int b_id = Integer.parseInt(request.getParameter("b_id"));
 		BoardDBBean manager = BoardDBBean.getInstance();
 		
 		int re = manager.editBoard(board);
 		if(re == 1){
-			%>
-				<script>
- 					alert("수정 성공.");
- 					location.href="list.jsp";
- 					//history.back();
-				</script>
-			<%
+			response.sendRedirect("list.jsp?pageNum="+pageNum);
+			
 // 			response.sendRedirect("list.jsp");
 		}else if(re==-2){
 			%>

@@ -13,8 +13,16 @@
 </head>
 <body>
 	<%
+		//넘어오는 페이지 번호를 변수에 저장
+		String pageNum = request.getParameter("pageNum");
+		//넘어오는 페이지 번호가 없으면 1페이지로 설정
+		if(pageNum == null){
+			pageNum = "1";
+		}
+		
 		BoardDBBean db = BoardDBBean.getInstance();
-		ArrayList<BoardBean> list = db.listBoard();
+// 		ArrayList<BoardBean> list = db.listBoard();
+		ArrayList<BoardBean> list = db.listBoard(pageNum);
 		int b_id, b_hit, b_level;
 		String b_name,b_title,b_email,b_content;
 		Timestamp b_date;
@@ -34,7 +42,7 @@
 			<tr height="30" >
 				<td width="80"></td>
 				<td width="500"></td>
-				<td width="200" align="left"><a href="write.jsp">글쓰기</a></td>
+				<td width="200" align="left"><a href="write.jsp?pageNum=<%=pageNum%>">글 쓰 기</a></td>
 			</tr>
 		</table>
 		<table border="1" cellspacing="0">
@@ -69,11 +77,11 @@
 	%>
 					<% for(int j=0; j<b_level; j++){ %> &nbsp; <% } %>
 					<img src="images/AnswerLine.gif" width="16" height="16">
-					<a href="show.jsp?b_id=<%= b_id %>"><%= b_title %></a>
+					<a href="show.jsp?b_id=<%= b_id %>&pageNum=<%=pageNum%>"><%= b_title %></a>
 	<%
 				}else{
 	%>
-					<a href="show.jsp?b_id=<%= b_id %>"><%= b_title %></a>
+					<a href="show.jsp?b_id=<%= b_id %>&pageNum=<%=pageNum%>"><%= b_title %></a>
 	<%
 				}
 	%>			</td>
@@ -87,7 +95,8 @@
 				}
 	%>
 		
-		</table>	
+		</table>
+		<%= BoardBean.pageNumber(4)%>	
 	</div>
 </body>
 </html>

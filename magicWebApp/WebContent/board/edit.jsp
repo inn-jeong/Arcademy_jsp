@@ -11,11 +11,14 @@
 </head>
 <body>
 <%
+	//넘어오는 페이지 번호를 변수에 저장
+	String pageNum = request.getParameter("pageNum");
+
 	BoardDBBean db = BoardDBBean.getInstance();
 	int b_id = Integer.parseInt(request.getParameter("b_id"));
 	BoardBean board = db.getBoard(b_id,false);
 %>
-	<form name="reg_frm" method="post" action="edit_ok.jsp?b_id=<%=b_id%>">
+	<form name="reg_frm" method="post" action="edit_ok.jsp?b_id=<%=b_id%>&pageNum=<%=pageNum%>">
 		<table align="center">
 			<tr height="50">
 				<td colspan="4" align="center">
@@ -56,7 +59,7 @@
 					&nbsp;&nbsp;&nbsp;
 					<input type="reset" value="다시작성">
 					&nbsp;&nbsp;&nbsp;
-					<input type="button" value="글목록" onclick="javascript:window.location='list.jsp'">
+					<input type="button" value="글목록" onclick="javascript:window.location='list.jsp?pageNum=<%=pageNum%>'">
 				</td>
 			</tr>
 		</table>

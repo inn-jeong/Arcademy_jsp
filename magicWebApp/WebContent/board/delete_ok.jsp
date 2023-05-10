@@ -11,6 +11,9 @@
 	<jsp:useBean class="magic.board.BoardBean" id="board"></jsp:useBean>
 	
 	<%
+		//넘어오는 페이지 번호를 변수에 저장	
+		String pageNum = request.getParameter("pageNum");
+	
 		BoardDBBean manager = BoardDBBean.getInstance();
 		String check_pwd = request.getParameter("check_pwd");
 		int b_id = Integer.parseInt(request.getParameter("b_id"));
@@ -21,7 +24,7 @@
 			%>
 				<script>
  					alert("삭제 성공.");
- 					location.href="list.jsp";
+ 					location.href="list.jsp?pageNum="+<%=pageNum%>;
  					//history.back();
 				</script>
 			<%

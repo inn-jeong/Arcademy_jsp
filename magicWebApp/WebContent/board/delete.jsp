@@ -11,9 +11,11 @@
 <body>
 	<jsp:useBean class="magic.board.BoardBean" id="board"></jsp:useBean>
 	<%
+		//넘어오는 페이지 번호를 변수에 저장
+		String pageNum = request.getParameter("pageNum");
 		String b_id = request.getParameter("b_id");
 	%>
-	<form name="reg_frm" method="post" action="delete_ok.jsp">
+	<form name="reg_frm" method="post" action="delete_ok.jsp?pageNum=<%=pageNum%>">
 		<div align="center">
 			<h1>글 삭 제 하 기</h1>
 			<h3>>>암호를 입력하세요.<< </h3> 
@@ -26,7 +28,7 @@
 				&nbsp;&nbsp;
 				<input type="reset" value="다시작성">
 				&nbsp;&nbsp;
-				<input type="button" value="글목록" onclick="javascript:window.location='list.jsp'">
+				<input type="button" value="글목록" onclick="javascript:window.location='list.jsp?pageNum=<%=pageNum%>'">
 			</p>
 		</div>
 	</form>

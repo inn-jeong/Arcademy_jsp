@@ -17,6 +17,39 @@ public class BoardBean {
 	private int b_step=0;
 	private int b_level=0;
 	
+	public static int pageSize = 10;	//한 페이지당 10개 출력
+	public static int pageCount = 1;	//페이지 개수 지정 변수
+	public static int pageNum = 1;		//페이지 번호
+	
+	//리턴: [이전] + 페이지 번호 + [다음] 
+	//limit : 페이지 화면 출력 개수(ex > pdf는 4개)
+	public static String pageNumber(int limit) {
+		String str = "";
+		int temp = (pageNum-1) % limit;
+		int startPage = pageNum - temp;
+		
+		//[이전]  출력 여부
+		if((startPage - limit) > 0) {
+			str = "<a href='list.jsp?pageNum="+(startPage-1)+"'>[이전]</a>&nbsp;&nbsp;";
+		}
+		
+		//페이지 번호 구현 및 현재 페이지에는 링크 달지 않음
+		for(int i=startPage; i<(startPage+limit);i++) {
+			if(i==pageNum) {
+				str += "["+i+"]&nbsp;&nbsp;";
+			}else {
+				str += "<a href='list.jsp?pageNum="+i+"'>"+"["+i+"]</a>&nbsp;&nbsp;";
+			}
+			if(i>=pageCount) break;
+		}
+		
+		//[다음] 출력
+		if((startPage + limit) <= pageCount) {
+			str += "<a href='list.jsp?pageNum="+(startPage+limit)+"'>[다음]</a>&nbsp;&nbsp;";
+		}
+		return str;
+	}
+	
 	public int getB_ref() {
 		return b_ref;
 	}

@@ -12,6 +12,9 @@
 <body>
 	<form name="reg_frm" method="post" action="write_ok.jsp">
 	<%
+		//넘어오는 페이지 번호를 변수에 저장
+		String pageNum = request.getParameter("pageNum");
+	
 		String str = "";
 		String b_title="";
 		int b_id = 0;
@@ -80,7 +83,7 @@
 					&nbsp;&nbsp;&nbsp;
 					<input type="reset" value="다시작성">
 					&nbsp;&nbsp;&nbsp;
-					<input type="button" value="글목록" onclick="javascript:window.location='list.jsp'">
+					<input type="button" value="글목록" onclick="javascript:window.location='list.jsp?pageNum=<%=pageNum%>'">
 				</td>
 			</tr>
 		</table>

@@ -11,6 +11,9 @@
 </head>
 <body>
 	<%
+		//넘어오는 페이지 번호를 변수에 저장
+		String pageNum = request.getParameter("pageNum");
+	
 		BoardDBBean db = BoardDBBean.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd hh:mm");
 		int num = Integer.parseInt(request.getParameter("b_id"));
@@ -41,13 +44,13 @@
 			</tr>
 			<tr height="30" >
 				<td colspan="4" align="right">
-				 <input type="button" value="글수정" onclick="javascript:window.location='edit.jsp?b_id=<%= num%>'">
+				 <input type="button" value="글수정" onclick="javascript:window.location='edit.jsp?b_id=<%= num%>&pageNum=<%=pageNum%>'">
 				 &nbsp;&nbsp;&nbsp;&nbsp; 
-				 <input type="button" value="글삭제" onclick="javascript:window.location='delete.jsp?b_id=<%= num%>'">
+				 <input type="button" value="글삭제" onclick="javascript:window.location='delete.jsp?b_id=<%= num%>&pageNum=<%=pageNum%>'">
 				 &nbsp;&nbsp;&nbsp;&nbsp;  
-				 <input type="button" value="답변글" onclick="javascript:window.location='write.jsp?b_id=<%= num%>'">
+				 <input type="button" value="답변글" onclick="javascript:window.location='write.jsp?b_id=<%= num%>&pageNum=<%=pageNum%>'">
 				 &nbsp;&nbsp;&nbsp;&nbsp; 
-				 <input type="button" value="글목록" onclick="javascript:window.location='list.jsp'"> 
+				 <input type="button" value="글목록" onclick="javascript:window.location='list.jsp?pageNum=<%=pageNum%>'"> 
 				 </td>			
 			</tr>
 		</table>
