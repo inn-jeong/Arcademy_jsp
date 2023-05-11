@@ -12,7 +12,7 @@
 	<table>
 		<tr>
 			<td width="50">상품명</td>
-			<td><input type="text" name="name" size="30"></td>
+			<td><input type="text" name="name" size="30" required></td>
 		</tr>
 		<tr>
 			<td>가격</td>

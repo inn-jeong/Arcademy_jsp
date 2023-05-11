@@ -318,6 +318,7 @@ public class BoardDBBean {
 				if(re != 1) System.out.println("수정 실패");
 			}
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				board.setB_name(rs.getString(1));
