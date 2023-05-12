@@ -4,6 +4,7 @@
 <%
 // 	응답이 정상적으로 된 상태로 설정
 	response.setStatus(HttpServletResponse.SC_OK);
+//testsf
 %>
 에러 발생
 <br>
