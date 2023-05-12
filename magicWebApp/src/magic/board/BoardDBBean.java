@@ -46,7 +46,7 @@ public class BoardDBBean {
 				}
 				insert_sql = "INSERT INTO BOARDT "
 						+ "VALUES((SELECT NVL(MAX(B_ID),0)+1 FROM BOARDT)"
-						+ ",?,?,?,?,?,?,?,?,?,?,?)";
+						+ ",?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 				pstmt = conn.prepareStatement(insert_sql);
 				pstmt.setString(1, board.getB_name());
 				pstmt.setString(2, board.getB_email());
@@ -59,12 +59,15 @@ public class BoardDBBean {
 				pstmt.setInt(9, board.getB_ref());
 				pstmt.setInt(10, board.getB_step()+1);
 				pstmt.setInt(11, board.getB_level()+1);
+				pstmt.setString(12, board.getB_fname());
+				pstmt.setInt(13, board.getB_fsize());
+				pstmt.setString(14, board.getB_rfname());
 			}else {
 				insert_sql = "INSERT INTO BOARDT "
 						+ "VALUES((SELECT NVL(MAX(B_ID),0)+1 FROM BOARDT)"
 						+ ",?,?,?,?,?,?,?,?"
 						+ ",(SELECT NVL(MAX(B_ID),0)+1 FROM BOARDT)"
-						+ ",?,?)";
+						+ ",?,?,?,?,?)";
 				pstmt = conn.prepareStatement(insert_sql);
 				pstmt.setString(1, board.getB_name());
 				pstmt.setString(2, board.getB_email());
@@ -76,6 +79,9 @@ public class BoardDBBean {
 				pstmt.setString(8, board.getB_ip());
 				pstmt.setInt(9, 0);
 				pstmt.setInt(10, 0);
+				pstmt.setString(11, board.getB_fname());
+				pstmt.setInt(12, board.getB_fsize());
+				pstmt.setString(13, board.getB_rfname());
 			}
 			
 			//INSERT는 executeUpdate 메소드 호출
@@ -85,6 +91,13 @@ public class BoardDBBean {
 		} catch (Exception e) {
 			System.out.println("sql 오류 발생");
 			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 		
 		return re;
@@ -166,7 +179,7 @@ public class BoardDBBean {
 		int dbCount = 0;			//게시글 총개수
 		int absolutePage =1;		//현재 페이지의 첫번째 게시글
 		
-		String sql = "SELECT b_id,b_name,b_email,b_title,b_content,b_date,b_hit,b_pwd,b_ip,b_ref,b_step,b_level "
+		String sql = "SELECT b_id,b_name,b_email,b_title,b_content,b_date,b_hit,b_pwd,b_ip,b_ref,b_step,b_level,b_fname,b_fsize "
 					+ "FROM BOARDT ORDER BY b_ref desc,b_step asc";
 		String sql2 = "SELECT COUNT(b_id) FROM BOARDT";
 //		String sql = "SELECT b_id,b_name,b_email,b_title,b_content,TO_CHAR(b_date,'YYYY-MM-DD HH24:MI') "
@@ -216,6 +229,8 @@ public class BoardDBBean {
 					board.setB_ref(rs.getInt(10));
 					board.setB_step(rs.getInt(11));
 					board.setB_level(rs.getInt(12));
+					board.setB_fname(rs.getString(13));
+					board.setB_fsize(rs.getInt(14));
 					list.add(board);
 					
 					//페이지 변경시 처리 위한 로직
@@ -253,8 +268,8 @@ public class BoardDBBean {
 				rs.close();
 				stmt.close();
 				conn.close();
-			}catch (Exception e) {
-				e.printStackTrace();
+			}catch (Exception e2) {
+				e2.printStackTrace();
 			}
 		}
 		
@@ -304,7 +319,8 @@ public class BoardDBBean {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		BoardBean board = new BoardBean();
-		String sql = "SELECT b_name,b_email,b_title,b_content,b_date,b_hit,b_pwd,b_ip,b_ref,b_step,b_level "
+		String sql = "SELECT b_name,b_email,b_title,b_content,b_date"
+				+ ",b_hit,b_pwd,b_ip,b_ref,b_step,b_level,b_fname,b_fsize,b_rfname "
 				+ "FROM BOARDT WHERE b_id ="+num;
 		String updateSql = "UPDATE BOARDT SET "
 				+ "B_HIT=B_HIT+1 WHERE B_ID=?";
@@ -318,7 +334,6 @@ public class BoardDBBean {
 				if(re != 1) System.out.println("수정 실패");
 			}
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				board.setB_name(rs.getString(1));
@@ -332,11 +347,22 @@ public class BoardDBBean {
 				board.setB_ref(rs.getInt(9));
 				board.setB_step(rs.getInt(10));
 				board.setB_level(rs.getInt(11));
+				board.setB_fname(rs.getString(12));
+				board.setB_fsize(rs.getInt(13));
+				board.setB_rfname(rs.getString(14));
 			}else {
 				System.out.println("불러오기 실패");
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null)rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 		
 		return board;
@@ -377,9 +403,10 @@ public class BoardDBBean {
 			e.printStackTrace();
 		}finally {
 			try {
-				pstmt.close();
-				conn.close();
-			} catch (Exception e2) {
+				if(rs != null)rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
@@ -423,15 +450,58 @@ public class BoardDBBean {
 			}else {
 				System.out.println("조회실패");//콘솔로 확인하기 위한 코드
 			}
-			pstmt.close();
-			conn.close();
 		} catch (Exception e) {
 			System.out.println("sql 오류 발생");
 			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null)rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 		
 		return re;
 	}
+	
+	public BoardBean getFileName(int b_id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT B_FNAME, B_RFNAME FROM BOARDT WHERE B_ID=?";
+		BoardBean board = null;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, b_id);
+			rs = pstmt.executeQuery();
+			
+			//첨부파일 있으면
+			if(rs.next()) {
+				board = new BoardBean();
+				board.setB_fname(rs.getString(1));
+				board.setB_rfname(rs.getString(2));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null)rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return board;
+	}
+	
+	
+	
+	
 	
 	public void generateList(int num) {
 		Connection conn = null;
@@ -461,13 +531,12 @@ public class BoardDBBean {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			try{
-				pstmt.close();
-				conn.close();
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 		}
 	}
 

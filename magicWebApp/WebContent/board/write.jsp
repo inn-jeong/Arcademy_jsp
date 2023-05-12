@@ -10,14 +10,13 @@
 <script type="text/javascript" src="board.js"></script>
 </head>
 <body>
-	<form name="reg_frm" method="post" action="write_ok.jsp">
+	<form name="reg_frm" method="post" action="write_ok.jsp" enctype="multipart/form-data">
 	<%
 		//넘어오는 페이지 번호를 변수에 저장
 		String pageNum = request.getParameter("pageNum");
-	
 		String str = "";
 		String b_title="";
-		int b_id = 0;
+		int b_id = 0,b_ref = 1, b_step=0, b_level=0;
 		if(request.getParameter("b_id") != null){
 			b_id = Integer.parseInt(request.getParameter("b_id"));
 			BoardDBBean db = BoardDBBean.getInstance();
@@ -65,6 +64,13 @@
 				}
 	%>
 				</td>
+			</tr>
+			<tr height="30">
+				<td width="80">파    일</td>
+				<td colspan="3" width="140">
+					<input type="file" name="b_fname" size="40" maxlength="100">
+				</td>
+
 			</tr>
 			<tr height="80">
 				<td colspan="4">

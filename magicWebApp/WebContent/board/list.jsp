@@ -23,7 +23,7 @@
 		BoardDBBean db = BoardDBBean.getInstance();
 // 		ArrayList<BoardBean> list = db.listBoard();
 		ArrayList<BoardBean> list = db.listBoard(pageNum);
-		int b_id, b_hit, b_level;
+		int b_id=0, b_hit=0, b_level=0, b_fsize=0;
 		String b_name,b_title,b_email,b_content;
 		Timestamp b_date;
 		String b_date2;
@@ -49,6 +49,7 @@
 		<table border="1" cellspacing="0">
 			<tr height="30" >
 				<td width="80" align="center">번호</td>
+				<td width="120" align="center">첨부파일</td>
 				<td width="500" align="center">글제목</td>
 				<td width="200" align="center">작성자</td>
 				<td width="200" align="center">작성일</td>
@@ -65,19 +66,30 @@
 // 					b_date2 = list.get(i).getB_date2();
 					b_hit = list.get(i).getB_hit();
 					b_level = list.get(i).getB_level();
+					b_fsize = list.get(i).getB_fsize();
  					//System.out.println(list.get(i).getB_date().toString());
 	%>
 			<tr height="30" 
 			 bgcolor="#f7f7f7"
 			 onmouseover="this.style.background='#ddd'"
-			 onmouseout="this.style.background='white'">
-				<td align="center"><%= list.get(i).getB_id() %></td>
+			 onmouseout="this.style.background='#f7f7f7'">
+				<td align="center"><%= b_id %></td>
+				<td>
+	<%
+				if(b_fsize > 0){
+	%>
+					<img src="./images/zip.gif">
+	<%
+					
+				}
+	%>
+				</td>
 				<td>
 	<%
 				if(b_level > 0){
 	%>
 					<% for(int j=0; j<b_level; j++){ %> &nbsp; <% } %>
-					<img src="images/AnswerLine.gif" width="16" height="16">
+					<img src="./images/AnswerLine.gif" width="16" height="16">
 					<a href="show.jsp?b_id=<%= b_id %>&pageNum=<%=pageNum%>"><%= b_title %></a>
 	<%
 				}else{

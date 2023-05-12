@@ -34,6 +34,28 @@
 				<td align="center" width="100">작성일</td>
 				<td align="center" width="200"><%= sdf.format(board.getB_date()) %></td>
 			</tr>
+			<tr height="30" align="center">
+				<td width="110">파&nbsp;&nbsp;일</td>
+				<td colspan="3">
+					&nbsp;
+			<%--
+			<%
+						if(board.getB_fname() != null){
+			%>				
+							<img src="./images/zip.gif">
+							<a href="../upload/<%=board.getB_fname()%>">
+								원본파일: <%= board.getB_fname() %>
+							</a>
+			<%	
+						}
+			%>
+			 --%>
+			 <%
+			 		//오타 나기 쉬움 주의! (num == board.getB_id() 강사님 코드랑 다름)
+			 		out.print("<p>첨부파일"+"<a href='FileDownload.jsp?fileN="+num+"'>"+board.getB_rfname()+"</a>"+"</p>");		
+			 %>
+				</td>
+			</tr>
 			<tr height="30" >
 				<td align="center">글제목</td>
 				<td colspan="3"><%= board.getB_title() %></td>
