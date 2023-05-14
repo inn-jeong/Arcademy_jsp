@@ -86,8 +86,6 @@ public class BoardDBBean {
 			
 			//INSERT는 executeUpdate 메소드 호출
 			re = pstmt.executeUpdate();
-			pstmt.close();
-			conn.close();
 		} catch (Exception e) {
 			System.out.println("sql 오류 발생");
 			e.printStackTrace();
