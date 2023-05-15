@@ -7,12 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
-		String str = request.getParameter("b_id");
-		String str2;
-		if(str == null) str2 = "null이다.";
-		else str2="null이 아니다.";
-	%>
-	<%= str2 %>
+<%
+	String a = request.getParameter("a");
+	String b = request.getParameter("b");
+%>
+a = <%=a %> <br>
+b = <%=b %>
 </body>
 </html>

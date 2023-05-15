@@ -22,13 +22,20 @@
 		//파일 삭제를 위한 처리
 		board = manager.getBoard(b_id, false);
 		String fName = board.getB_fname();
-		String up="D:\\dev\\work_java\\.metadata\\.plugins\\"
+		//String up="D:\\dev\\work_java\\.metadata\\.plugins\\"
+		//		+"org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\"
+		//		+"magicWebApp\\upload\\"; //파일 경로(역슬래쉬\ 는 특수문자 취급이라 두번)
+		String up="D:\\dev\\java_workspace\\.metadata\\.plugins\\"
 				+"org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\"
 				+"magicWebApp\\upload\\"; //파일 경로(역슬래쉬\ 는 특수문자 취급이라 두번)
 		
 		int re = manager.deleteBoard(b_id,check_pwd);
 		
 		if(re == 1){
+			if(fName != null){
+				File file = new File(up+fName);
+				file.delete();
+			}
 			%>
 				<script>
  					alert("삭제 성공.");
@@ -36,10 +43,6 @@
  					//history.back();
 				</script>
 			<%
-			if(fName != null){
-				File file = new File(up+fName);
-				file.delete();
-			}
 // 			response.sendRedirect("list.jsp");
 		}else if(re==-2){
 			%>

@@ -53,7 +53,7 @@
 			 <%
 			 		//fdhiaosfhio
 			 		//오타 나기 쉬움 주의! (num == board.getB_id() 강사님 코드랑 다름)
-			 		out.print("<p>첨부파일"+"<a href='FileDownload.jsp?fileN="+num+"'>"+board.getB_rfname()+"</a>"+"</p>");		
+			 		out.print("<p>첨부파일: "+"<a href='FileDownload.jsp?fileN="+num+"'>"+board.getB_rfname()+"</a>"+"</p>");		
 			 %>
 				</td>
 			</tr>
