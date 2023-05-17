@@ -68,15 +68,13 @@
     }
     session.setAttribute("mem_name", name);
     session.setAttribute("mem_uid", email);
+    session.setAttribute("mem_email", email);
     session.setAttribute("Member", "yes");//main화면으로 넘어올때 로그인 되어 있는지
     session.setAttribute("naver","yes");
-    String url = "loginOK.jsp?mem_uid="+email+"&mem_name="+name;
+    String url = "loginOK.jsp?mem_uid="+email+"&mem_name="+name+"&mem_pwd= ";
   %>
   <script type="text/javascript">
-<%-- 	  location.href= "main.jsp?name=<%= name %>&email=<%=email%>&birthyear=<%=birthyear%>"; --%>
-<%-- 	  opener.parent.location.href= "loginOK.jsp?mem_uid="+<%=email%>+"&mem_name="+<%=name%>; --%>
 	  opener.parent.location="<%=url%>";
-// 	  opener.parent.location= "main.jsp";
 	  window.close();
   </script>
   </body>

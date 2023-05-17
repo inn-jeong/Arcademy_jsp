@@ -24,13 +24,16 @@
 	<jsp:useBean class="magic.member.MemberBean" id="mb"></jsp:useBean>
 	<%
 		String id="", pw="",email="", name="", naver="";
+		int check = 0;
 		id = request.getParameter("mem_uid");
 		pw = request.getParameter("mem_pwd");
 		name = request.getParameter("mem_name");
 		
 		MemberDBBean manager = MemberDBBean.getInstance();
 		//초기값 -1, 비밀번호가 일치하면 1, 비밀번호가 불일치하면 0
-		int check = manager.userCheck(id, pw);
+		if(pw != null){
+			check = manager.userCheck(id, pw);
+		}
 		mb = manager.getMember(id);
 		if(mb == null){//회원 없음
 			if(session.getAttribute("naver") != null){

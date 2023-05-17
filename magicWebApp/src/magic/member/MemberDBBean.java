@@ -104,7 +104,9 @@ public class MemberDBBean {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {//아이디가 일치하는 로우 존재
-				db_mem_pw = rs.getString("mem_pwd");
+				if(rs.getString("mem_pwd") != null) {
+					db_mem_pw = rs.getString("mem_pwd");
+				}
 				if(db_mem_pw.equals(pwd)) {
 					re = 1;
 				}else {

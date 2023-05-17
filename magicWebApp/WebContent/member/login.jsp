@@ -46,7 +46,8 @@
 			</tr>
 		</table>
 	</form>
-	<button style="border:0; background-color:#fff;" onclick="showLoginPopup();"> <img width="130" height="40" src="http://static.nid.naver.com/oauth/small_g_in.PNG"> </button>
+<!-- 	<button style="border:0; background-color:#fff;" onclick="showLoginPopup();"> <img width="130" height="40" src="http://static.nid.naver.com/oauth/small_g_in.PNG"> </button> -->
+	<button style="border:0; background-color:#fff;" onclick="showLoginPopup();"> <img width="180" height="50" src="btnG_완성형.png"> </button>
 	</div>
 </body>
 </html>
