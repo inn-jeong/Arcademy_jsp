@@ -38,7 +38,7 @@
 				<td width="100" align="center">비밀번호</td>
 				<td><input type="password" name="mem_pwd" size="20"></td>
 			</tr>
-			<tr>
+			<tr valign="middle">
 				<td colspan="2" align="center">
 					<input type="submit" value="로그인">
 					<input type="button" value="회원가입" onclick="javascript:window.location='register.jsp'">
@@ -46,7 +46,7 @@
 			</tr>
 		</table>
 	</form>
-	<button onclick="showLoginPopup();"> <img width="150" height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"> </button>
+	<button  style="border:0; background-color:#fff;" onclick="showLoginPopup();"> <img width="130" height="40" src="http://static.nid.naver.com/oauth/small_g_in.PNG"> </button>
 	</div>
 </body>
 </html>
