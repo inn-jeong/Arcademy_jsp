@@ -1,4 +1,4 @@
-<%@page import="login.ApiExamMemberProfile"%>
+<%@page import="magic.member.ApiExamMemberProfile"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="org.json.simple.parser.JSONParser"%>
 <%@ page import="java.net.URLEncoder" %>
@@ -17,7 +17,7 @@
     String clientSecret = "R7mkHm93ii";//애플리케이션 클라이언트 시크릿값";
     String code = request.getParameter("code");
     String state = request.getParameter("state");
-    String redirectURI = URLEncoder.encode("http://localhost:8090/Naver_Login_Test/callback.jsp", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://localhost:8090/magicWebApp/member/callback.jsp", "UTF-8");
     String apiURL;
     String access_token, name="", email="", birthyear="";
     apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
@@ -66,10 +66,17 @@
       System.out.println(e);
       e.printStackTrace();
     }
+    session.setAttribute("mem_name", name);
+    session.setAttribute("mem_uid", email);
+    session.setAttribute("Member", "yes");//main화면으로 넘어올때 로그인 되어 있는지
+    session.setAttribute("naver","yes");
+    String url = "loginOK.jsp?mem_uid="+email+"&mem_name="+name;
   %>
   <script type="text/javascript">
 <%-- 	  location.href= "main.jsp?name=<%= name %>&email=<%=email%>&birthyear=<%=birthyear%>"; --%>
-	  opener.parent.location= "main.jsp?name=<%= name %>&email=<%=email%>&birthyear=<%=birthyear%>";
+<%-- 	  opener.parent.location.href= "loginOK.jsp?mem_uid="+<%=email%>+"&mem_name="+<%=name%>; --%>
+	  opener.parent.location="<%=url%>";
+// 	  opener.parent.location= "main.jsp";
 	  window.close();
   </script>
   </body>

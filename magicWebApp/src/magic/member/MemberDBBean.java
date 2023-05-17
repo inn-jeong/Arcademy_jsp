@@ -43,12 +43,17 @@ public class MemberDBBean {
 			//INSERT는 executeUpdate 메소드 호출
 			pstmt.executeUpdate();
 			re=1;
-			pstmt.close();
-			conn.close();
 			System.out.println("추가 성공");
 		} catch (Exception e) {
 			System.out.println("추가 실패");
 			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return re;
 	}
@@ -70,11 +75,16 @@ public class MemberDBBean {
 			}else {//해당 아이디가 존재하지 않음
 				re = -1;
 			}
-			rs.close();
-			pstmt.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return re;
 	}
@@ -103,11 +113,16 @@ public class MemberDBBean {
 			}else {//해당 아이디가 존재하지 않음
 				re = -1;
 			}
-			rs.close();
-			pstmt.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return re;
 	}
@@ -137,6 +152,14 @@ public class MemberDBBean {
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return member;
 	}
@@ -156,14 +179,19 @@ public class MemberDBBean {
 			pstmt.setString(4, member.getMem_uid());
 			//update는 executeUpdate 메소드 호출
 			re = pstmt.executeUpdate();
-			pstmt.close();
-			conn.close();
 			
 //			오류가 나도 출력되므로 주석처리
 //			System.out.println("수정 성공");
 		} catch (Exception e) {
 			System.out.println("수정 실패");
 			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return re;
 	}

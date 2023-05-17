@@ -1,5 +1,4 @@
 
-<%@page import="magic.member.MemberBean"%>
 <%@page import="magic.member.MemberDBBean"%>
 <%@page import="javax.naming.NamingException"%>
 <%@page import="java.sql.SQLException"%>
@@ -23,34 +22,23 @@
 	<% request.setCharacterEncoding("utf-8"); %>
 	<jsp:useBean class="magic.member.MemberBean" id="mb"></jsp:useBean>
 	<%
-		String id="", pw="",email="", name="", naver="";
+		String id="", pw="";
 		id = request.getParameter("mem_uid");
 		pw = request.getParameter("mem_pwd");
-		name = request.getParameter("mem_name");
-		
 		MemberDBBean manager = MemberDBBean.getInstance();
 		//초기값 -1, 비밀번호가 일치하면 1, 비밀번호가 불일치하면 0
 		int check = manager.userCheck(id, pw);
 		mb = manager.getMember(id);
 		if(mb == null){//회원 없음
-			if(session.getAttribute("naver") != null){
-				mb = new MemberBean();
-				mb.setMem_uid(id);
-				mb.setMem_name(name);
-				mb.setMem_email(id);
-				manager.insertMember(mb);
-				response.sendRedirect("main.jsp");
-			}else{
-				%>
-				<script>
-					alert("존재하지 않는 회원");
-					history.back();
-				</script>
-				<%
-			}
+			%>
+			<script>
+				alert("존재하지 않는 회원");
+				history.back();
+			</script>
+			<%
 		}else{//회원 있음
-			name = mb.getMem_name();
-			if(check==1 || session.getAttribute("naver") != null){//비밀번호가 일치하면 1
+			String name = mb.getMem_name();
+			if(check==1){//비밀번호가 일치하면 1
 				session.setAttribute("mem_uid", id);
 				session.setAttribute("mem_pwd", mb.getMem_pwd());
 				session.setAttribute("Member", "yes");//main화면으로 넘어올때 로그인 되어 있는지

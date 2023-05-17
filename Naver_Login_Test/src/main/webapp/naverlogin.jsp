@@ -18,6 +18,12 @@
     apiURL += "&state=" + state;
     session.setAttribute("state", state);
  %>
-  <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+<%--   <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a> --%>
+  <script type="text/javascript">
+  	function showLoginPopup(){
+  		window.open("<%=apiURL%>","Naver Login", "width=450, height=600");
+  	}
+  </script>
+	<button onclick="showLoginPopup();"> <img width="150" height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"> </button>
   </body>
 </html>
